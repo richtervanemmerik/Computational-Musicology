@@ -1,0 +1,130 @@
+---
+title: "Computational Musicology"
+output: 
+  flexdashboard::flex_dashboard:
+    orientation: rows
+    vertical_layout: fill
+    storyboard: true
+    fig_width: 5 
+    fig_height: 3  
+    theme: 
+      version: 4
+      bootswatch: minty
+
+---
+
+```{r setup, include=FALSE}
+library(flexdashboard)
+library(tidyverse)
+library(spotifyr)
+library(compmus)
+```
+
+
+### Introduction
+My corpus exist of my all time favorite songs. It includes 4 whole albums of my 2 favorite artists. Following some songs of different albums of these 2 that I really like. The artists are called Kevin and Josylvio. These artists are dutch hiphop artists. You can maybe know them from the songs: Beetje moe(Kevin), Ik kom je halen(Kevin and Josylvio) Ride or Die(Josylvio). Subsequently I chose songs from my top 25 most listen to songs featuring different artists. 
+
+The songs in my corpus are mostly form 2 artists and only hiphop music. I wonder why I like these artists so much. Perhaps they have something in common that I will find out in this course. Thus my corpus contains the genre hiphop and all the artists and albums are from the same genre. I would expect the duration to be quite the same. Although the tempo of the music will vary, because I really like slow rap music. Although I do really some fast paced music rap music aswell. 
+
+My corpus is a personal playlist of music is often listen to and it is really genre based. I would like to compare my 2 favorite artists. These are artist that are different in there genre but what distinguishes these artist from each other and what have they in common that I really like. Ofcourse in the genre of dutch hiphop there are lots of different styles that are not in my corpus that would be a limitation, cause I am only mostly focusing on 2 artists. And perhaps I could have chosen more songs from a different genre so that I could compare hiphop with, something like techno. This is a genre that I also love. I do think that all my songs are typical hiphop songs. Ofcourse they are all different and I have my favorites. So in my opinion I really need to investigate in my favorite songs. Why are these my favorite songs. What differentiates these songs from the other ones? I would think the tempo and the beat in combination of the text they are rapping makes it perfect.
+
+
+
+
+
+
+
+
+
+```{r, include=FALSE}
+joost <- get_artist_audio_features("1wFoE1RwBMWoWkXcFrCgsx")
+kevin <- get_artist_audio_features("0IxgA9wO4Op3CSnPlhfwV1")
+joost_kevin <-
+bind_rows(
+joost %>% mutate(category = "Josylvio"),
+kevin %>% mutate(category = "Kevin")
+)
+```
+### Energy of Kevin and Josylvio
+
+```{r, echo=FALSE}
+joost_kevin %>%
+ggplot(aes(x = energy)) +
+geom_density( alpha= 0.5, fill = "#0a5b96") +
+facet_wrap(~category) +
+theme_bw() +
+labs( x ="Energy of tracks",
+title = "The difference in energy between Kevin and Josylvio")
+```
+
+***
+ The artist Kevin is known for his slow style. Can this style be visualized?
+ In this graph the distribution of energy for Kevin and Josylvio is represented.
+ Kevin has significantly less energy in his songs than Josylvio.
+
+### Difference between Kevin and Josylvio
+
+```{r, echo=FALSE}
+joost_kevin %>%
+ggplot(aes(x = valence, y=energy, color=danceability)) +
+geom_point() +
+facet_wrap(~category) +
+theme_bw() +
+labs( x ="Valence of tracks",
+title = "Energy and valence")
+```
+
+***
+ In this graph is the difference bewteen Kevin and Josylvio is represented.
+ There is a significant difference between the valence and energy between Kevin and Josylvio. Although Josylvio has more tracks he also has many tracks in the top right of the table. Meaning his songs have more energy and valence than Kevin.
+
+
+
+### Acousticness of corpus
+```{r, echo=FALSE}
+corpus <- get_playlist_audio_features("","3xXtsAHwrd17OqgTeIhuAV")
+ggplot(corpus, aes(x = acousticness))+
+theme_bw() +
+geom_density( alpha= 0.5, fill = "green") +
+labs( x ="Acousticness of tracks",
+title = "Distribution of the Acousticness of my corpus tracks")
+```
+
+***
+
+ In this plot the acousticness of my corpus is represented. The acousticness is scarce in my corpus. 
+
+
+### Chomagram
+  
+```{r, echo=FALSE}
+peak <-
+  get_tidy_audio_analysis("11L064movtyopGdLiX4sVg") %>%
+  select(segments) %>%
+  unnest(segments) %>%
+  select(start, duration, pitches)
+peak %>%
+  mutate(pitches = map(pitches, compmus_normalise, "euclidean")) %>%
+  compmus_gather_chroma() %>% 
+  ggplot(
+    aes(
+      x = start + duration / 2,
+      width = duration,
+      y = pitch_class,
+      fill = value
+    )
+  ) +
+  geom_tile() +
+  labs(x = "Time (s)", y = NULL, fill = "Magnitude", title="Chromagram: Peak - Drake") +
+  theme_minimal() +
+  scale_fill_viridis_c()
+
+```
+
+***
+
+ This song is not from Kevin or Josylvio. This is a chromagram of a song of Drake called Peak.  As I said in the introduction, there are a few songs in my corpus that are not from those two artist. In my opinion this song is a outlier in my corpus, because in this track a lot of times he is not talking or rapping. You only hear an amazing electronic beat and sometimes you can hear a sort of sketch where some woman is talking.
+
+
+
+
