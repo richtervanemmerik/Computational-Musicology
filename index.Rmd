@@ -18,6 +18,7 @@ library(flexdashboard)
 library(tidyverse)
 library(spotifyr)
 library(compmus)
+library(plotly)
 ```
 
 
@@ -48,13 +49,14 @@ kevin %>% mutate(category = "Kevin")
 ### Energy of Kevin and Josylvio
 
 ```{r, echo=FALSE}
-joost_kevin %>%
-ggplot(aes(x = energy)) +
-geom_density( alpha= 0.5, fill = "#0a5b96") +
-facet_wrap(~category) +
-theme_bw() +
-labs( x ="Energy of tracks",
-title = "The difference in energy between Kevin and Josylvio")
+plot2 <- joost_kevin %>%
+  ggplot(aes(x = energy)) +
+  geom_density( alpha= 0.5, fill = "#0a5b96") +
+  facet_wrap(~category) +
+  theme_bw() +
+  labs( x ="Energy of tracks",
+  title = "The difference in energy between Kevin and Josylvio")
+ggplotly(plot2)
 ```
 
 ***
@@ -65,13 +67,14 @@ title = "The difference in energy between Kevin and Josylvio")
 ### Difference between Kevin and Josylvio
 
 ```{r, echo=FALSE}
-joost_kevin %>%
-ggplot(aes(x = valence, y=energy, color=danceability)) +
-geom_point() +
-facet_wrap(~category) +
-theme_bw() +
-labs( x ="Valence of tracks",
-title = "Energy and valence")
+plot <- joost_kevin %>%
+  ggplot(aes(x = valence, y=energy, color=danceability)) +
+  geom_point() +
+  facet_wrap(~category) +
+  theme_bw() +
+  labs( x ="Valence of tracks",
+  title = "Energy and valence")
+ggplotly(plot)
 ```
 
 ***
