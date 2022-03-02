@@ -68,7 +68,7 @@ ggplotly(plot2)
 
 ```{r, echo=FALSE}
 plot <- joost_kevin %>%
-  ggplot(aes(x = valence, y=energy, color=danceability)) +
+  ggplot(aes(x = valence, y=energy, color=danceability, label=track_name)) +
   geom_point() +
   facet_wrap(~category) +
   theme_bw() +
