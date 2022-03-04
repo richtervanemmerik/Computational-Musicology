@@ -9,7 +9,7 @@ output:
     fig_height: 4 
     storyboard: true
     theme: 
-      version: 5
+      version: 4
       bootswatch: solar
 
 ---
