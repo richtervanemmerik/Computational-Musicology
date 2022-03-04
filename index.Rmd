@@ -1,15 +1,16 @@
 ---
 title: "Computational Musicology"
+author: "Richter van Emmerik"
 output: 
   flexdashboard::flex_dashboard:
     orientation: rows
     vertical_layout: fill
-    storyboard: true
     fig_width: 5 
-    fig_height: 3  
+    fig_height: 4 
+    storyboard: true
     theme: 
-      version: 4
-      bootswatch: minty
+      version: 5
+      bootswatch: solar
 
 ---
 
@@ -23,6 +24,9 @@ library(plotly)
 
 
 ### Introduction
+![Kevin en Josylvio](https://i.ytimg.com/vi/FRviWWPWaWw/maxresdefault.jpg)
+
+***
 My corpus exist of my all time favorite songs. It includes 4 whole albums of my 2 favorite artists. Following some songs of different albums of these 2 that I really like. The artists are called Kevin and Josylvio. These artists are dutch hiphop artists. You can maybe know them from the songs: Beetje moe(Kevin), Ik kom je halen(Kevin and Josylvio) Ride or Die(Josylvio). Subsequently I chose songs from my top 25 most listen to songs featuring different artists. 
 
 The songs in my corpus are mostly form 2 artists and only hiphop music. I wonder why I like these artists so much. Perhaps they have something in common that I will find out in this course. Thus my corpus contains the genre hiphop and all the artists and albums are from the same genre. I would expect the duration to be quite the same. Although the tempo of the music will vary, because I really like slow rap music. Although I do really some fast paced music rap music aswell. 
@@ -60,7 +64,8 @@ ggplotly(plot2)
 ```
 
 ***
- The artist Kevin is known for his slow style. Can this style be visualized?
+ As said in the introduction Kevin and Josylvio are my favorite artist  but they are quite different and in this project I would like to know  what distinguishes these artist from each other. Well one way is to look at the energy of Kevin and Josylvio respectively, because   
+ the artist Kevin is known for his slow style. Can this style be visualized?
  In this graph the distribution of energy for Kevin and Josylvio is represented.
  Kevin has significantly less energy in his songs than Josylvio.
 
@@ -68,7 +73,7 @@ ggplotly(plot2)
 
 ```{r, echo=FALSE}
 plot <- joost_kevin %>%
-  ggplot(aes(x = valence, y=energy, color=danceability, label=track_name)) +
+  ggplot(aes(x = valence, y=energy, color=album_name, label=track_name)) +
   geom_point() +
   facet_wrap(~category) +
   theme_bw() +
@@ -78,25 +83,46 @@ ggplotly(plot)
 ```
 
 ***
- In this graph is the difference bewteen Kevin and Josylvio is represented.
+ Kevin began his career in 2016 when he published his first album called Kleine Versnelling. Although his second album was released two years later. Josylvio started his career in 2016 as well and has released an album every year since then. As shown in the previous graph there is quite a difference between the energy of Josylvio and Kevin, but how does the energy compare to the valence between these two.  
+ In this graph the difference bewteen Kevin and Josylvio is represented for every album they have published.
  There is a significant difference between the valence and energy between Kevin and Josylvio. Although Josylvio has more tracks he also has many tracks in the top right of the table. Meaning his songs have more energy and valence than Kevin.
 
 
 
-### Acousticness of corpus
+### Danceability of four albums
+```{r, include=FALSE}
+cash <- get_playlist_audio_features("","2AcJhQbxPVWFFGBCvZeklT")
+lente <- get_playlist_audio_features("","7jCPiSU9LK5Qe6sD3T3Oqc")
+vrij <- get_playlist_audio_features("","0Jo9d16dGGUzVXvbASH0ua")
+gimma <- get_playlist_audio_features("","5jU6D0RtOP0e2mO28bQhNd")
+
+albums <-
+  bind_rows(
+    cash %>% mutate(category = "Hella Cash(Josylvio)"),
+    lente %>% mutate(category = "Lente(Kevin)"),
+    vrij %>% mutate(category = "Vrij(Kevin)"),
+    gimma %>% mutate(category = "Gimma(Josyvlio)")
+    )
+
+```
+
+
+
 ```{r, echo=FALSE}
-corpus <- get_playlist_audio_features("","3xXtsAHwrd17OqgTeIhuAV")
-ggplot(corpus, aes(x = acousticness))+
-theme_bw() +
-geom_density( alpha= 0.5, fill = "green") +
-labs( x ="Acousticness of tracks",
-title = "Distribution of the Acousticness of my corpus tracks")
+albums %>%       
+  ggplot(aes(x = danceability))+
+  theme_bw() +
+  geom_density( alpha= 0.5, fill = "red") +
+  facet_wrap(~category) +
+  labs( x ="danceability of tracks",
+        title = "Distribution of the danceability of four albums") 
+
 ```
 
 ***
+ In 2018 two albums were released in one month apart from each other. First at the end of the winter Josylvio published his album Hella Cash. The next month Kevin released his album Lente. That year both albums topped my charts. The next year Kevin and Josylvio both published an album again. First Kevin released Vrij and then Josylvio released Gimma. Once more the albums topped my charts again. Althought I really like the albums they are quite different. In this graph on the left you can see a distribution for the danceability of the tracks. There is quite a difference between the danceability of Kevin and Josylvio in these albums. Josylvio released a lot more danceable tracks than Kevin.
 
- In this plot the acousticness of my corpus is represented. The acousticness is scarce in my corpus. 
-
+ 
 
 ### Chomagram
   
@@ -126,8 +152,94 @@ peak %>%
 
 ***
 
- This song is not from Kevin or Josylvio. This is a chromagram of a song of Drake called Peak.  As I said in the introduction, there are a few songs in my corpus that are not from those two artist. In my opinion this song is a outlier in my corpus, because in this track a lot of times he is not talking or rapping. You only hear an amazing electronic beat and sometimes you can hear a sort of sketch where some woman is talking.
+ This song is not from Kevin or Josylvio. This is a chromagram of a song of Drake called Peak.  As I said in the introduction, there are a few songs in my corpus that are not from those two artist. In my opinion this song is a outlier in my corpus, because in this track a lot of times he is not talking or rapping. You only hear an amazing electronic beat and sometimes you can hear a sort of sketch where some woman is talking. As shown in the graph Drake uses a lot A and F in the track especially in the end. And he uses D some more in the middle of the track.
+
+### Cepstrogram Josylvio
+
+```{r cepjos}
+fake_love <-
+  get_tidy_audio_analysis("161XFHnK9ghaUohNIvKqJ4") %>% # Change URI.
+  compmus_align(bars, segments) %>%                     # Change `bars`
+  select(bars) %>%                                      #   in all three
+  unnest(bars) %>%                                      #   of these lines.
+  mutate(
+    pitches =
+      map(segments,
+          compmus_summarise, pitches,
+          method = "rms", norm = "euclidean"              # Change summary & norm.
+      )
+  ) %>%
+  mutate(
+    timbre =
+      map(segments,
+          compmus_summarise, timbre,
+          method = "rms", norm = "euclidean"              # Change summary & norm.
+      )
+  )
 
 
+fake_love %>%
+  compmus_gather_timbre() %>%
+  ggplot(
+    aes(
+      x = start + duration / 2,
+      width = duration,
+      y = basis,
+      fill = value
+    )
+  ) +
+  geom_tile() +
+  labs(x = "Time (s)", y = NULL, fill = "Magnitude",title="Cepstrogram Fake Love - Josylvio") +
+  scale_fill_viridis_c() +                              
+  theme_classic()
 
+```
+
+***
+
+ In February 2018 Josylvio released the album Hella Cash. The first song on the album is called Fake Love and it is my favorite song of the track. On top of that it is my most listen to track of all time. I have listened for over more than ten hours to this track. Hence I would find it appropriate to analyse this track. In the graph on the left a cepstrogram of this song is shown. In this song he quite often uses c02 and c05. He goes a little bit back and forth between the c02 and c05. Especially in the beginning and the end.
+
+### Cepstrogram Kevin
+```{r cepkev}
+dakje_open <-
+  get_tidy_audio_analysis("0HyNAixyTtdkSDgRgHSCp4") %>% # Change URI.
+  compmus_align(bars, segments) %>%                     # Change `bars`
+  select(bars) %>%                                      #   in all three
+  unnest(bars) %>%                                      #   of these lines.
+  mutate(
+    pitches =
+      map(segments,
+          compmus_summarise, pitches,
+          method = "rms", norm = "euclidean"              # Change summary & norm.
+      )
+  ) %>%
+  mutate(
+    timbre =
+      map(segments,
+          compmus_summarise, timbre,
+          method = "rms", norm = "euclidean"              # Change summary & norm.
+      )
+  )
+
+
+dakje_open %>%
+  compmus_gather_timbre() %>%
+  ggplot(
+    aes(
+      x = start + duration / 2,
+      width = duration,
+      y = basis,
+      fill = value
+    )
+  ) +
+  geom_tile() +
+  labs(x = "Time (s)", y = NULL, fill = "Magnitude", title="Cepstrogram Dakje Open - Kevin") +
+  scale_fill_viridis_c() +                              
+  theme_classic()
+
+```
+
+***
+
+ In March 2018 Kevin released the album Lente. With this album he released the song called Dakje Open. I have listened to this track for over 12 hours. And it is also the first track on the album which is quite a coincidence. In the graph on the left a cepstrogram of this song is shown. In this track he varys a lot between c02 and c03 and in the beginning and the end he uses c05. He really varys a lot between those, because there aren't a lot of high magnitude strips in the graph.
 
