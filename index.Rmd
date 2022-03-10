@@ -9,7 +9,7 @@ output:
     fig_height: 4 
     storyboard: true
     theme: 
-      version: 4
+      version: 5
       bootswatch: solar
 
 ---
@@ -243,3 +243,54 @@ dakje_open %>%
 
  In March 2018 Kevin released the album Lente. With this album he released the song called Dakje Open. I have listened to this track for over 12 hours. And it is also the first track on the album which is quite a coincidence. In the graph on the left a cepstrogram of this song is shown. In this track he varys a lot between c02 and c03 and in the beginning and the end he uses c05. He really varys a lot between those, because there aren't a lot of high magnitude strips in the graph.
 
+
+### What is the difference between the timbre coefficients of Kevin and Josylvio?
+
+```{r}
+albums_joost <-
+  bind_rows(
+    cash %>% mutate(category = "Hella Cash(Josylvio)"),
+    gimma %>% mutate(category = "Gimma(Josyvlio)")
+  )
+
+albums_kevin <-
+  bind_rows(
+    lente %>% mutate(category = "Lente(Kevin)"),
+    vrij %>% mutate(category = "Vrij(Kevin)"),
+  )
+
+
+
+josylvio <-
+  albums_joost %>%
+  add_audio_analysis()
+slowflow <-
+  albums_kevin %>%
+  add_audio_analysis()
+albumss <-
+  josylvio %>%
+  mutate(albums = "Hella Cash and Gimma") %>%
+  bind_rows(slowflow %>% mutate(albums = "Lente and Vrij"))
+
+plot5 <- albumss %>%
+  mutate(
+    timbre =
+      map(
+        segments,
+        compmus_summarise,
+        timbre,
+        method = "mean"
+      )
+  ) %>%
+  select(albums, timbre) %>%
+  compmus_gather_timbre() %>%
+  ggplot(aes(x = basis, y = value, fill = albums)) +
+  geom_violin() +
+  scale_fill_viridis_d() +
+  labs(x = "Spotify Timbre Coefficients", y = "", fill = "Albums")
+ggplotly(plot5)
+```
+
+***
+
+ In this graph we are again comparing those four albums released in 2018 and 2019. Hella Cash and Gimma from Josylvio and Lente and Vrij from Kevin. Although this time we are not comparing the danceability but we are comparing the average timbre coefficients between these albums. I am again comparing these albums because they are my favorites and in my opinion it is important to have consistency in my portfolio. Coefficients 5 and 8 look like the most promising marker that distinguishing these. 
