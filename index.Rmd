@@ -294,3 +294,46 @@ ggplotly(plot5)
 ***
 
  In this graph we are again comparing those four albums released in 2018 and 2019. Hella Cash and Gimma from Josylvio and Lente and Vrij from Kevin. Although this time we are not comparing the danceability but we are comparing the average timbre coefficients between these albums. I am again comparing these albums because they are my favorites and in my opinion it is important to have consistency in my portfolio. Coefficients 5 and 8 look like the most promising marker that distinguishing these. 
+ 
+ 
+### Tempo analysis of a track from Josylvio
+
+```{r}
+no_long_things <- get_tidy_audio_analysis("2B14G7xCynT85NATGK0Skv")
+
+no_long_things %>%
+  tempogram(window_size = 8, hop_size = 1, cyclic = TRUE) %>%
+  ggplot(aes(x = time, y = bpm, fill = power)) +
+  geom_raster() +
+  scale_fill_viridis_c(guide = "none") +
+  labs(x = "Time (s)", y = "Tempo (BPM)") +
+  theme_classic()
+
+
+```
+
+
+***
+ 
+ The Fourier-based tempogram at the left is an attempt to use Spotify’s API to analyse the tempo of Josylvio’s ‘No Long Things’. This is in my opinion the song from Josyvlio and in my corpus with the highest tempo. This is really a 'hype' song. As seen in the graph the BPM of this track is almost every time above 140.
+ 
+ 
+### Tempo analysis of a track from Kevin
+```{r}
+tijdloos <- get_tidy_audio_analysis("4iWQ21fxtHI2GiBrf7KxG4")
+
+tijdloos %>%
+  tempogram(window_size = 8, hop_size = 1, cyclic = TRUE) %>%
+  ggplot(aes(x = time, y = bpm, fill = power)) +
+  geom_raster() +
+  scale_fill_viridis_c(guide = "none") +
+  labs(x = "Time (s)", y = "Tempo (BPM)") +
+  theme_classic()
+
+
+```
+
+
+***
+ 
+ The Fourier-based tempogram at the left is an attempt to use Spotify’s API to analyse the tempo of Kevin’s ‘Tijdloos’. In the tempogram before we analysed a track with a really high tempo throughout the song, whereas this songs is a song in my opinion that is really slow, thus with a really low tempo. This is a song which I would listen if I wanted to go to sleep. Although as seen in the graph the tempo in this song is somewhat everywhere, however most of the yellow is under the 100 BPM mark. So most of the time the BPM is under 100, although in some parts of the song he accelerates. 
