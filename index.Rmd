@@ -334,7 +334,7 @@ no_long_things %>%
 
 ***
  
- The Fourier-based tempogram at the left is an attempt to use Spotify’s API to analyse the tempo of Josylvio’s ‘No Long Things’. This is in my opinion the song from Josyvlio and in my corpus with the highest tempo. This is really a 'hype' song. As seen in the graph the BPM of this track is almost every time above 140.
+ The Fourier-based tempogram at the left is an attempt to use Spotify’s API to analyse the tempo of Josylvio’s ‘No Long Things’. This is in my opinion the song from Josyvlio and in my corpus with the highest tempo. This is really a 'hype' song. As seen in the graph the BPM of this track is almost every time above 140. In the last section it dips a little bit. That is because, if you listen to the song, there is a verse that is slower than the chorus. In the second, just before the 50 second mark it dips as well that is also because there is a verse.
  
 ```{=html}
 <iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/2B14G7xCynT85NATGK0Skv?utm_source=generator" width="100%" height="80" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
@@ -359,7 +359,7 @@ tijdloos %>%
 
 ***
  
- The Fourier-based tempogram at the left is an attempt to use Spotify’s API to analyse the tempo of Kevin’s ‘Tijdloos’. In the tempogram before we analysed a track with a really high tempo throughout the song, whereas this songs is a song in my opinion that is really slow, thus with a really low tempo. This is a song which I would listen if I wanted to go to sleep. Although as seen in the graph the tempo in this song is somewhat everywhere, however most of the yellow is under the 100 BPM mark. So most of the time the BPM is under 100, although in some parts of the song he accelerates. 
+ The Fourier-based tempogram at the left is an attempt to use Spotify’s API to analyse the tempo of Kevin’s ‘Tijdloos’. In the tempogram before we analysed a track with a really high tempo throughout the song, whereas this songs is a song in my opinion that is really slow, thus with a really low tempo. This is a song which I would listen if I wanted to go to sleep. Although as seen in the graph the tempo in this song is somewhat everywhere, however most of the yellow is under the 100 BPM mark. So most of the time the BPM is under 100, although in some parts of the song the beat accelerates a little bit that is why it is sometimes all over the places. 
  
 ```{=html}
 <iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/4iWQ21fxtHI2GiBrf7KxG4?utm_source=generator" width="100%" height="80" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
@@ -471,4 +471,4 @@ albumss %>%
 
 ***
 
- On the left there is a graph that represents standard deviation and the mean tempo of four albums. Hella cash and Gimma from Josylvio and Lente and Vrij from Kevin. In my opinion this is not the most interesting visualisation for comparing Kevin and Josyvlio. because volume, duration, mean and standard deviation of the songs is not what they differentiate. Although it could be interesting to take a quick look at the difference of these features between them.
+ On the left there is a graph that represents standard deviation and the mean tempo of four albums. Hella cash and Gimma from Josylvio and Lente and Vrij from Kevin. In my opinion this is not the most interesting visualisation for comparing Kevin and Josyvlio, because volume, duration, mean and standard deviation of the songs is not what they differentiate. Although it could be interesting to take a quick look at the difference of these features between them.
