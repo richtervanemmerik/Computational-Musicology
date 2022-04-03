@@ -5,6 +5,7 @@ output:
   flexdashboard::flex_dashboard:
     orientation: rows
     vertical_layout: fill
+    self_contained: false
     fig_width: 5 
     fig_height: 4 
     storyboard: true
@@ -157,6 +158,10 @@ peak %>%
 ***
 
  This song is not from Kevin or Josylvio. This is a chromagram of a song of Drake called Peak.  As I said in the introduction, there are a few songs in my corpus that are not from those two artist. In my opinion this song is a outlier in my corpus, because in this track a lot of times he is not talking or rapping. You only hear an amazing electronic beat and sometimes you can hear a sort of sketch where some woman is talking. As shown in the graph Drake uses a lot A and F in the track especially in the end. And he uses D some more in the middle of the track.
+ 
+```{=html}
+<iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/11L064movtyopGdLiX4sVg?utm_source=generator" width="100%" height="80" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
+```   
 
 ### Cepstrogram Josylvio
 
@@ -202,6 +207,13 @@ fake_love %>%
 ***
 
  In February 2018 Josylvio released the album Hella Cash. The first song on the album is called Fake Love and it is my favorite song of the track. On top of that it is my most listen to track of all time. I have listened for over more than ten hours to this track. Hence I would find it appropriate to analyse this track. In the graph on the left a cepstrogram of this song is shown. In this song he quite often uses c02 and c05. He goes a little bit back and forth between the c02 and c05. Especially in the beginning and the end.
+ 
+```{=html}
+<iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/161XFHnK9ghaUohNIvKqJ4?utm_source=generator" width="100%" height="80" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
+``` 
+ 
+
+ 
 
 ### Cepstrogram Kevin
 ```{r cepkev}
@@ -247,6 +259,9 @@ dakje_open %>%
 
  In March 2018 Kevin released the album Lente. With this album he released the song called Dakje Open. I have listened to this track for over 12 hours. And it is also the first track on the album which is quite a coincidence. In the graph on the left a cepstrogram of this song is shown. In this track he varys a lot between c02 and c03 and in the beginning and the end he uses c05. He really varys a lot between those, because there aren't a lot of high magnitude strips in the graph.
 
+```{=html}
+<iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/0HyNAixyTtdkSDgRgHSCp4?utm_source=generator" width="100%" height="80" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
+``` 
 
 ### What is the difference between the timbre coefficients of Kevin and Josylvio?
 
@@ -321,6 +336,10 @@ no_long_things %>%
  
  The Fourier-based tempogram at the left is an attempt to use Spotify’s API to analyse the tempo of Josylvio’s ‘No Long Things’. This is in my opinion the song from Josyvlio and in my corpus with the highest tempo. This is really a 'hype' song. As seen in the graph the BPM of this track is almost every time above 140.
  
+```{=html}
+<iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/2B14G7xCynT85NATGK0Skv?utm_source=generator" width="100%" height="80" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
+```  
+ 
  
 ### Tempo analysis of a track from Kevin
 ```{r}
@@ -342,6 +361,9 @@ tijdloos %>%
  
  The Fourier-based tempogram at the left is an attempt to use Spotify’s API to analyse the tempo of Kevin’s ‘Tijdloos’. In the tempogram before we analysed a track with a really high tempo throughout the song, whereas this songs is a song in my opinion that is really slow, thus with a really low tempo. This is a song which I would listen if I wanted to go to sleep. Although as seen in the graph the tempo in this song is somewhat everywhere, however most of the yellow is under the 100 BPM mark. So most of the time the BPM is under 100, although in some parts of the song he accelerates. 
  
+```{=html}
+<iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/4iWQ21fxtHI2GiBrf7KxG4?utm_source=generator" width="100%" height="80" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
+```  
  
 ### What are the components of Kevin and Josylvio 
 ```{r}
