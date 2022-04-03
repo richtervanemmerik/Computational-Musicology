@@ -418,3 +418,57 @@ ggheatmap(
 ***
 
  For this visualization I choose the most iconic songs from Kevin and Josyvlio. The dendogram and heatmap breaks the best songs from Josyvlio and Kevin into five clusters. First, there is a group of five with low tempo and c07 values, although with somewhat high danceability values. Second, there is a small group of three, all songs from Josyvlio, with high values for c01, c02, c03, energy and loudness. Altough very low values of C and C#|Db. Thirdly, there is a group of four. They all have a average tempo value in common and they have very low F and F#|Gb values. Fourthly there is a much larger group of six with values of around 0.75 for c01,loudness and energy. The final group is the biggest of seven. Two tracks from Josylvio and five from Kevin These are tracks with quite some tempo but really lack in valence. 
+ 
+ 
+### Conclusion
+In this portfolio we mainly examined the difference between two Dutch Hip Hop artists called Kevin and Josyvlio by looking at the Spotify API features. To begin this analyzation we first looked at three graphs from Spotify's track level features. Firstly, the energy between the two artist. There was quite a difference because Kevin has a lot less energy in his track. We then compared the energy and valence between all the songs of every album they made. At last we scrutinized the difference between the danceability between four albums(two albums each). We distinguished that Josyvlio has more danceable tracks. Secondly, we examined the pitch features from a song of Drake. This was not a song from the two main artist, but this song was really a outlier in my corpus Thirdly, the timbre features of Kevin and Josyvlio were visualized in three graphs. First we compared two songs with a cepstrogram and subsequently we compared four albums(two each), where we noticed a difference between some timbre features. Thirdly, there is a analysis of the comparison of two track for the tempo of a song. One tempogram of a song with a high tempo and one song with low tempo. At last we clustered the most iconic songs from Kevin and Josylvio into five clusters. In conclusion, the difference between Kevin and Josyvlio is not gigantic. Although as seen in all the visualizations Kevin and Josyvlio mainly differentiate between their danceability, energy and valence of their tracks. Josyvlio has generally higher values in all these features. Furthermore they differ in some timbre features like c05. Moreover the cluster algorithm could cluster some Kevin or Josyvlio songs together although not 100%.
+
+***
+
+ ```{=html}
+<iframe style="border-radius:12px" src="https://open.spotify.com/embed/playlist/3xXtsAHwrd17OqgTeIhuAV?utm_source=generator&theme=0" width="100%" height="380" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
+```  
+ 
+ 
+### Appendix
+```{r}
+albumss %>%
+  mutate(
+    sections =
+      map(
+        sections,                                    # sections or segments
+        summarise_at,
+        vars(tempo, loudness, duration),             # features of interest
+        list(section_mean = mean, section_sd = sd)   # aggregation functions
+      )
+  ) %>%
+  unnest(sections) %>%
+  ggplot(
+    aes(
+      x = tempo,
+      y = tempo_section_sd,
+      colour = albums,
+      alpha = loudness
+    )
+  ) +
+  geom_point(aes(size = duration / 60)) +
+  geom_rug() +
+  theme_minimal() +
+  ylim(0, 5) +
+  labs(
+    x = "Mean Tempo (bpm)",
+    y = "SD Tempo",
+    colour = "Albums",
+    size = "Duration (min)",
+    alpha = "Volume (dBFS)"
+  )
+
+
+
+
+```
+
+
+***
+
+ On the left there is a graph that represents standard deviation and the mean tempo of four albums. Hella cash and Gimma from Josylvio and Lente and Vrij from Kevin. In my opinion this is not the most interesting visualisation for comparing Kevin and Josyvlio. because volume, duration, mean and standard deviation of the songs is not what they differentiate. Although it could be interesting to take a quick look at the difference of these features between them.
